@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Cradle Library</title>
+</head>
+<body>
+    <form action="/cart" method="post" class="delete_button_form" style="display: none;">
+        <input type="text" name="del_cart" class="del_cart">
+    </form>
+    <header>
+        <div class="header">
+            <h1>Welcome User</h1>
+            <h3>Check the books you have below</h3>
+        </div>
+</header>
+<section>
+    <div class="book_cards">
+        <% for(let book of books) {%>
+            <div class="book_card">
+                <div class="book_card_image">
+                    <img src=<%=book.imageLink%> alt="" srcset="">
+                </div>
+                <div class="book_card_description">
+                    <h1> <%=book.title%> </h1>
+                    <h2> <%=book.author%></h2>
+                    <p>Country : <%=book.country%></p>
+                    <p>Language : <%=book.language%></p>
+                    <p>Link : <%=book.link%> </p>
+                    <p>No. of pages : <%=book.pages%></p>
+                    <p>Year : <%=book.year%></p>
+                    <div class="submit_button"><button class=<%=book._id%>> Return Item </button></div>
+                </div>
+            </div>
+        <% } %>
+        <button class="buy_now"> <a href="/dashboard">Buy Now</a></button>
+    </div>
+</section>
+<script>
+    var getImageName = function() {
+        document.onclick = function(e) {
+          if (e.target.tagName == 'BUTTON' && e.target.className != 'buy_now') {
+            var image = e.target.getAttribute("class");
+            formSubmitCode(image);
+          }
+        }
+      }
+
+      var formSubmitCode = function(image) {
+        var form = document.querySelector(".delete_button_form");
+        var input = document.querySelector(".del_cart");
+        input.value = image;
+        form.submit();
+      }
+      getImageName();
+
+</script>
+</body>
+</html>

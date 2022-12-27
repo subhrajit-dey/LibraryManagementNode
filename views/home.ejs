@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Cradle Library</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h1>Cradle Library</h1>
+            <h3>Pick Your Books of Choice from one the Largest Collections</h3>
+        </div>
+
+        <div class="ls">
+            <% if (notLoggedIn) { %>
+                <span><a href="/login">Login</a></span><span><a href="/register">Sign Up</a></span>
+            <%} else { %>
+                <span><a href="/dashboard">Go to Your DashBoard</a></span><span><a href="/logout">Logout</a></span><span><a href="/cart">Move to your Cart</a></span>
+            <% } %>
+        </div>
+
+</header>
+
+<form action="/" method="post" class="cart_data_form" style="display: none;">
+    <input class="cart_data" type="text" name="book_id">
+</form>
+
+<div class="card_container">
+    <% for(let book of books) {%>
+    <div class="card">
+        <img src=<%=book.imageLink%> alt="">
+        <h3><%=book.title%></h3>
+        <h5><%=book.author%></h5>
+        <p>
+            No of Pages : <%=book.pages%><br>
+            Language : <%=book.language%><br>
+            InStock : <span class="inStock"><%=book.inStock%></span>
+            <button class=<%=book._id%>>Borrow</button>
+        </p>
+    </div>
+    <% } %>
+</div>
+<script>
+    var getImageName = function() {
+        document.onclick = function(e) {
+          if (e.target.tagName == 'BUTTON') {
+            var image = e.target.getAttribute("class");
+            formSubmitCode(image);
+            console.log(image);
+
+          }
+        }
+      }
+
+      var formSubmitCode = function(image) {
+        console.log(image);
+        var form = document.querySelector(".cart_data_form");
+        var input = document.querySelector(".cart_data");
+        input.value = image;
+        form.submit();
+        console.log(input);
+      }
+
+
+      getImageName();
+
+
+</script>
+</body>
+</html>
